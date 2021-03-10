@@ -141,3 +141,45 @@ function doesUsernameExist($username)
 
     return !$user_exists_result || $user_exists_set->fetchColumn()>0;
 }
+
+function getAllUsers()
+{
+    $pdo = Database::getInstance()->getConnection();
+    $queryAll = "SELECT * FROM tbl_user";
+    $runAll = $pdo->query($queryAll);
+    $users = $runAll->fetchAll(PDO::FETCH_ASSOC);
+
+    if($users){
+        return $users;
+    } else {
+        return 'There was a problem accessing this info';
+    }
+}
+
+function editAllUsers($user_data)
+{
+    $pdo = Database::getInstance()->getConnection();
+
+    $update_all_user_query = 'UPDATE tbl_user SET user_fname = :fname, user_name = :username, user_pass = :password, user_email = :email, user_level = :user_level WHERE user_name = :username';
+    $update_all_user_set = $pdo->prepare($update_all_user_query);
+    $update_all_user_result = $update_all_user_set->execute(
+        array(
+            ':fname'=>$user_data['fname'],
+            ':username'=>$user_data['username'],
+            ':password'=>$user_data['password'],
+            ':email'=>$user_data['email'],
+            ':user_level'=>$user_data['user_level']
+        )
+    );
+
+    // This is a debugging tool
+    // It will show you the SQL query you are attemping
+    // $update_user_set->debugDumpParams();
+    // exit;
+
+    if($update_all_user_result){
+        redirect_to('index.php');
+    } else {
+        return 'Update failed';
+    }
+}

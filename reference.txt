@@ -8,8 +8,20 @@ When they log out and back in they are sent to admin page.
 
 #3. Users with admin access can edit other user accounts, 
 normal users can only edit their own account.
-    - need to list all user accounts available
+    - need to list all user accounts available - done
+    - make new file page admin_editallusers.php - done
+    - make link to all users only available to admin - done
+    *utilize isCurrentUserAdminAbove() like create user page
+
+    - how to get user information to populate fields?
+    - how to ensure other user is getting updated, not own account?
+
+    - maybe.. instead of linking to admin_edituser.php,
+    - show all users with forms on editallusers page
+    * each for will submit its own info to update db
 
 #4. New users have a time limit to log into their account after creation. 
 Account is suspended if time expires.
-    - 
+    - add account_created column to table
+    - when logging in, check again account_created column
+    - if longer than 24hrs, log in is not permitted.
