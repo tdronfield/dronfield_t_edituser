@@ -1,0 +1,15 @@
+#1. Allow User to login and edit their account - Done
+
+#2. When new user logs in for the first time, taken to edit account (skip admin pg)
+When they log out and back in they are sent to admin page.
+    - add if statement to login to check if user has logged in before
+    - query database and check IP; if no ip (NULL), user had not logged in
+    - redirect_to edit user page.
+
+#3. Users with admin access can edit other user accounts, 
+normal users can only edit their own account.
+    - need to list all user accounts available
+
+#4. New users have a time limit to log into their account after creation. 
+Account is suspended if time expires.
+    - 
