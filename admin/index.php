@@ -15,6 +15,7 @@ confirm_logged_in(); // Ensures only logged in users can access dashboard page
 
     <?php if(isCurrentUserAdminAbove()):?>
         <a href="admin_createuser.php">Create User</a>
+        <a href="admin_editallusers.php">Edit All Users</a>    
     <?php endif;?>
 
     <a href="admin_edituser.php">Edit User</a>
