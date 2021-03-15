@@ -6,6 +6,9 @@ When they log out and back in they are sent to admin page.
     - query database and check IP; if no ip (NULL), user had not logged in
     - redirect_to edit user page.
 
+    https://medium.com/@yakshbhesaniya/create-change-edit-profile-module-in-php-1850030087f6
+    
+
 #3. Users with admin access can edit other user accounts, 
 normal users can only edit their own account.
     - need to list all user accounts available - done
@@ -20,8 +23,14 @@ normal users can only edit their own account.
     - show all users with forms on editallusers page
     * each for will submit its own info to update db
 
+    https://wordpress.stackexchange.com/questions/131814/if-the-current-user-is-an-administrator-or-editor
+
+
 #4. New users have a time limit to log into their account after creation. 
 Account is suspended if time expires.
     - add account_created column to table
     - when logging in, check again account_created column
     - if longer than 24hrs, log in is not permitted.
+
+    https://www.php.net/manual/en/function.set-time-limit.php 
+    https://stackoverflow.com/questions/10792196/php-mysql-trying-to-add-time-limit-to-how-offten-user-can-post
