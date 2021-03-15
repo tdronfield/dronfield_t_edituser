@@ -16,6 +16,17 @@ function login($username, $password, $ip)
         )
     );
 
+    // add if statement here and nest login
+
+    //if(no ip (NULL) (user had not logged in) AND account_created > 10mins){
+    //  run login
+    //  AND
+    //  redirect_to edit user page.     
+    //} else {
+    //  run login
+    //}
+
+    // Run Login
     if ($found_user = $user_set->fetch(PDO::FETCH_ASSOC)){
         // Found user, log in!
         // Debugging line only
