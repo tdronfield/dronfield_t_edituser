@@ -18,8 +18,19 @@ confirm_logged_in(); // Ensures only logged in users can access dashboard page
         <a href="admin_editallusers.php">Edit All Users</a>    
     <?php endif;?>
 
+    
     <a href="admin_edituser.php">Edit User</a>
     <a href="admin_logout.php">Log Out</a>
 
+    <br><br>
+    <!-- <?php $created = $_SESSION['account_created'];?>
+    <?php $date = date("Y-m-d"); ?>
+
+    <?php var_dump($created); ?>
+    <br><br>
+    <?php var_dump($date); ?>
+    <br><br>
+    <?php var_dump($created == $date); ?>
+    -->
 </body>
 </html>

@@ -1,6 +1,6 @@
-#1. Allow User to login and edit their account - Done
+#1. Allow User to login and edit their account - Done - 30%
 
-#2. When new user logs in for the first time, taken to edit account (skip admin pg) - DONE !!!!!
+#2. When new user logs in for the first time, taken to edit account (skip admin pg) - DONE - 60%
 When they log out and back in they are sent to admin page.
     - add if statement to login to check if user has logged in before
     - query database and check IP; if no ip (NULL), user had not logged in * need to pull user_ip from DB 
@@ -30,8 +30,11 @@ normal users can only edit their own account.
 Account is suspended if time expires.
     - add account_created column to table
     - when user created, update account_created column to current_timestamp
-    - when logging in, check account_created column
-    - if longer than 24hrs, log in is not permitted.
+    - when logging in, after ip is confirmed NULL (first login) check account_created column
+    - check if account_created and the date are the same; user must log in before day is over
+    - if the day matches, log in
+        
+    - else, do not log in
 
     https://www.php.net/manual/en/function.set-time-limit.php 
     https://stackoverflow.com/questions/10792196/php-mysql-trying-to-add-time-limit-to-how-offten-user-can-post
