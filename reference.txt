@@ -1,10 +1,10 @@
 #1. Allow User to login and edit their account - Done
 
-#2. When new user logs in for the first time, taken to edit account (skip admin pg)
+#2. When new user logs in for the first time, taken to edit account (skip admin pg) - DONE !!!!!
 When they log out and back in they are sent to admin page.
     - add if statement to login to check if user has logged in before
-    - query database and check IP; if no ip (NULL), user had not logged in
-    - redirect_to edit user page.
+    - query database and check IP; if no ip (NULL), user had not logged in * need to pull user_ip from DB 
+    - redirect_to edit user page. * 
 
     https://medium.com/@yakshbhesaniya/create-change-edit-profile-module-in-php-1850030087f6
     

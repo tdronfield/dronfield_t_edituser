@@ -12,18 +12,16 @@ function login($username, $password, $ip)
     $user_set->execute(
         array(
             ':username'=>$username,
-            ':password'=>$password
+            ':password'=>$password,
         )
     );
 
-    // add if statement here and nest login
+    // add if statement to check if IP is NULL
 
-    //if(no ip (NULL) (user had not logged in) AND account_created > 10mins){
-    //  run login
-    //  AND
+    //if(no ip (NULL) (user has never logged in) {
     //  redirect_to edit user page.     
     //} else {
-    //  run login
+    //  run normal login
     //}
 
     // Run Login
@@ -34,25 +32,45 @@ function login($username, $password, $ip)
 
         // Indicate the ID
         $found_user_id = $found_user['user_id'];
+        $ip = $found_user['user_ip'];
 
         // Write user and id into session
         $_SESSION['user_id'] = $found_user_id;
         $_SESSION['user_name'] = $found_user['user_fname'];
         $_SESSION['user_level'] = $found_user['user_level'];
-        
 
-        // Update user IP
-        $update_user_query = 'UPDATE tbl_user SET user_ip = :user_ip WHERE user_id=:user_id';
-        $update_user_set = $pdo->prepare($update_user_query);
-        $update_user_set->execute(
-            array(
-                ':user_ip'=>$ip,
-                ':user_id'=>$found_user_id
-            )
-        );
+        // Check if IP is NULL  
+        // If it is, login like normal, but redirect to edit user page
+        if (is_null($ip)){
+            // Login like usual
+            // Update user IP
+            $update_user_query = 'UPDATE tbl_user SET user_ip = :user_ip WHERE user_id=:user_id';
+            $update_user_set = $pdo->prepare($update_user_query);
+            $update_user_set->execute(
+                array(
+                    ':user_ip'=>$ip,
+                    ':user_id'=>$found_user_id
+                )
+            );
 
-        // Redirect user back to index.php
-        redirect_to('index.php');
+            // Redirect user to edit account
+            redirect_to('admin_edituser.php');
+
+        } else {
+            // Login like usual
+            // Update user IP
+            $update_user_query = 'UPDATE tbl_user SET user_ip = :user_ip WHERE user_id=:user_id';
+            $update_user_set = $pdo->prepare($update_user_query);
+            $update_user_set->execute(
+                array(
+                    ':user_ip'=>$ip,
+                    ':user_id'=>$found_user_id
+                )
+            );
+
+            // Redirect user back to index.php
+            redirect_to('index.php');
+        }
 
     } else {
         // Invalid attemp, rejected!
