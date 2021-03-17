@@ -12,10 +12,19 @@ function login($username, $password, $ip)
     $user_set->execute(
         array(
             ':username'=>$username,
-            ':password'=>$password
+            ':password'=>$password,
         )
     );
 
+    // add if statement to check if IP is NULL
+
+    //if(no ip (NULL) (user has never logged in) {
+    //  redirect_to edit user page.     
+    //} else {
+    //  run normal login
+    //}
+
+    // Run Login
     if ($found_user = $user_set->fetch(PDO::FETCH_ASSOC)){
         // Found user, log in!
         // Debugging line only
@@ -24,24 +33,64 @@ function login($username, $password, $ip)
         // Indicate the ID
         $found_user_id = $found_user['user_id'];
 
+        // Indicate IP
+        $ip = $found_user['user_ip'];
+
+        // Indicate account_created
+        $account_created = $found_user['account_created'];
+
         // Write user and id into session
         $_SESSION['user_id'] = $found_user_id;
         $_SESSION['user_name'] = $found_user['user_fname'];
         $_SESSION['user_level'] = $found_user['user_level'];
+        $_SESSION['account_created'] = $found_user['account_created'];
         
+        // If account_created is the same as today's date, nest login script
+        // Else "Please Contact and Admin"
+        // How to avoid this when not first time logging in?
+        // Nest inside if(is_null($ip)) ? 
 
-        // Update user IP
-        $update_user_query = 'UPDATE tbl_user SET user_ip = :user_ip WHERE user_id=:user_id';
-        $update_user_set = $pdo->prepare($update_user_query);
-        $update_user_set->execute(
-            array(
-                ':user_ip'=>$ip,
-                ':user_id'=>$found_user_id
-            )
-        );
+        // if($account_created == date("Y-m-d")){
+            
+        // } else {
+        //     return "Account Expired. Please contact an Admin.";
+        // }
 
-        // Redirect user back to index.php
-        redirect_to('index.php');
+        // Check if IP is NULL  
+        // If it is, login like normal, but redirect to edit user page
+        if (is_null($ip)){
+            
+            // Login like usual
+            // Update user IP
+            // Restore IP address in $ip variable
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $update_user_query = 'UPDATE tbl_user SET user_ip = :user_ip WHERE user_id=:user_id';
+            $update_user_set = $pdo->prepare($update_user_query);
+            $update_user_set->execute(
+                array(
+                    ':user_ip'=>$ip,
+                    ':user_id'=>$found_user_id
+                )
+            );
+
+            // Redirect user to edit account
+            redirect_to('admin_edituser.php');
+
+        } else {
+            // Login like usual
+            // Update user IP
+            $update_user_query = 'UPDATE tbl_user SET user_ip = :user_ip WHERE user_id=:user_id';
+            $update_user_set = $pdo->prepare($update_user_query);
+            $update_user_set->execute(
+                array(
+                    ':user_ip'=>$ip,
+                    ':user_id'=>$found_user_id
+                )
+            );
+
+            // Redirect user back to index.php
+            redirect_to('index.php');
+        }
 
     } else {
         // Invalid attemp, rejected!

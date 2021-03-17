@@ -11,6 +11,7 @@ if(isset($_POST['submit'])){
         'password'=>trim($_POST['password']),
         'email'=>trim($_POST['email']),
         'user_level'=>isCurrentUserAdminAbove()?trim($_POST['user_level']):'0',
+        'id'=>trim($_POST['id'])
     );
 
     $message = editAllUsers($data);
@@ -38,7 +39,9 @@ if(isset($_POST['submit'])){
     <div>
         <form action="admin_editallusers.php" method="POST">
         <!-- Use POST - do not show sensitive information in URL -->
-            
+            <label for="id">ID</label> 
+            <input id="id" type="text" name="id" value="<?php echo $user['user_id']; ?>">
+            <br><br>
             <label for="first_name">First Name</label> 
             <input id="first_name" type="text" name="fname" value="<?php echo $user['user_fname']; ?>">
             <br><br>

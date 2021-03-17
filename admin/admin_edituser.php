@@ -79,5 +79,7 @@ if(isset($_POST['submit'])){
         <?php endwhile;?>
     </form>
     <?php endif;?>
+
+    <a href="index.php">Back to Dashboard</a>
 </body>
 </html>

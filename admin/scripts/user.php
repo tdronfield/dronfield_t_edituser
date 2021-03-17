@@ -160,7 +160,7 @@ function editAllUsers($user_data)
 {
     $pdo = Database::getInstance()->getConnection();
 
-    $update_all_user_query = 'UPDATE tbl_user SET user_fname = :fname, user_name = :username, user_pass = :password, user_email = :email, user_level = :user_level WHERE user_name = :username';
+    $update_all_user_query = 'UPDATE tbl_user SET user_fname = :fname, user_name = :username, user_pass = :password, user_email = :email, user_level = :user_level WHERE user_id = :id';
     $update_all_user_set = $pdo->prepare($update_all_user_query);
     $update_all_user_result = $update_all_user_set->execute(
         array(
@@ -168,7 +168,8 @@ function editAllUsers($user_data)
             ':username'=>$user_data['username'],
             ':password'=>$user_data['password'],
             ':email'=>$user_data['email'],
-            ':user_level'=>$user_data['user_level']
+            ':user_level'=>$user_data['user_level'],
+            ':id'=>$user_data['id']
         )
     );
 
