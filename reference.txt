@@ -9,7 +9,7 @@ When they log out and back in they are sent to admin page.
     https://medium.com/@yakshbhesaniya/create-change-edit-profile-module-in-php-1850030087f6
     
 
-#3. Users with admin access can edit other user accounts, 
+#3. Users with admin access can edit other user accounts, - PARTIALLY DONE
 normal users can only edit their own account.
     - need to list all user accounts available - done
     - make new file page admin_editallusers.php - done
